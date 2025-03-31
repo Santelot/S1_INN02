@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook - Sesión 2: Taller Innovación 3D</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .header {
+            background-color: #2196F3; /* Blue accent color */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+         .header h2 {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+        .time-title {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .banner {
+            background-color: #2196F3; /* Blue accent color */
+            color: white;
+            padding: 12px 15px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .banner:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+        .banner .title {
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .banner .subtitle {
+            font-size: 1em;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            padding-top: 8px;
+            font-weight: normal;
+        }
+        .content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            border-radius: 0 0 5px 5px;
+            background-color: #f9f9f9;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .dialogue {
+            background-color: #e3f2fd; /* Light blue background for dialogue */
+            border: 1px solid #bbdefb; /* Lighter blue border */
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: left; /* Adjusted alignment */
+            font-style: normal; /* Removed italics for main dialogue */
+            position: relative;
+        }
+        .dialogue i { /* Style for instructions within dialogue */
+           display: block;
+           margin-top: 8px;
+           color: #555;
+           font-style: italic;
+        }
+        .dropdown {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .dropdown select {
+            font-size: 1em;
+            padding: 8px 12px;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            text-align: left;
+        }
+         td:first-child {
+            font-weight: bold;
+             width: 40%; /* Adjust width as needed */
+         }
+        ul, ol {
+            margin-left: 20px;
+            padding-left: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+             color: #1976D2; /* Darker blue for emphasis */
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .table-example table, .table-example th, .table-example td {
+            border: 1px solid black; /* Example table style */
+            padding: 5px;
+            font-size: 0.9em;
+        }
+        .table-example th {
+            background-color: #e0e0e0;
+        }
+    </style>
+    <script>
+        function updateActivities() {
+            var selectedTime = document.getElementById('time-select').value;
+            var activities = document.getElementsByClassName('activity');
+
+            document.getElementById('selected-time').innerText = "Tiempo efectivo de clase: " + selectedTime + " minutos";
+
+            // Base time is 40 minutes, all activities shown by default.
+            for (var i = 0; i < activities.length; i++) {
+                activities[i].style.display = 'block';
+            }
+
+            // Add logic here if shorter variations are needed in the future
+            /*
+            if (selectedTime === '35') {
+                // Example: Hide or shorten an activity
+            } else if (selectedTime === '30') {
+                 // Example: Hide or shorten multiple activities
+            }
+            */
+        }
+
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateActivities(); // Call once on load
+             var contents = document.querySelectorAll('.content');
+             contents.forEach(function(content) {
+                 content.style.display = 'none';
+             });
+        });
+    </script>
+</head>
+<body>
+
+<div class="header">
+    <h1>Playbook - Taller: Del Diseño 3D a la Realidad: ¡Imprimiendo el Futuro! (1º Secundaria)</h1>
+    <h2>Sesión 2: Creatividad Delimitada - ¡Ideas 3D en Explosión!</h2>
+</div>
+
+<div class="container">
+    <div class="dropdown">
+        <label for="time-select">Tiempo efectivo de Clase:</label>
+        <select id="time-select" onchange="updateActivities()">
+            <option value="40" selected>40 minutos</option>
+            <!-- <option value="35">35 minutos</option> -->
+            <!-- <option value="30">30 minutos</option> -->
+        </select>
+    </div>
+
+    <h2 id="selected-time" class="time-title">Tiempo efectivo de clase: 40 minutos</h2>
+
+<!-- ------------------------------------------------- Espacio para De un Vistazo --------------------------------------------------------- -->
+<div id="activity-0" class="activity">
+    <div class="banner" onclick="toggleContent('de_un_vistazo_s2')">
+        <div class="title">🎯 De un Vistazo y Preparación Previa (Sesión 2) 📋</div>
+        <div class="subtitle">Resumen rápido de la sesión 2 y lo que necesitas preparar.</div>
+    </div>
+    <div id="de_un_vistazo_s2" class="content">
+        <table>
+            <tr>
+                <td>
+                    <strong>Objetivos:</strong>
+                    <ul>
+                        <li>Recordar el ODS elegido y el Combinaboard inicial.</li>
+                        <li><strong>Táctica 2:</strong> Definir las restricciones creativas (Función, Audiencia, Materiales - opcional) para enfocar el diseño 3D (Fence the Playground).</li>
+                        <li><strong>Táctica 3:</strong> Generar una gran cantidad de ideas de diseño 3D específicas dentro de las restricciones establecidas (6-3-5).</li>
+                        <li><strong>Táctica Combinaboard (Parte 2):</strong> Añadir preguntas específicas sobre viabilidad, funcionalidad e impacto al Combinaboard.</li>
+                    </ul>
+                    <strong>Tácticas Principales:</strong> Fence the Playground, 6-3-5 (Ideas 3D), Combinaboard (Preguntas Poderosas).<br><br>
+                    <strong>Entregable Clave:</strong> Restricciones 3D definidas. Hoja/Tablero 6-3-5 lleno de ideas. Combinaboard actualizado con preguntas específicas.
+                </td>
+                <td>
+                    <strong>Materiales Específicos:</strong>
+                    <ul>
+                        <li>Proyector o pantalla interactiva.</li>
+                        <li>Presentación de diapositivas (Diapositivas 9-15 detalladas abajo).</li>
+                        <li>Acceso a tablero Miro (o similar) con Combinaboards de Sesión 1 visibles y plantillas 6-3-5 preparadas, O hojas de papel grandes con plantilla 6-3-5.</li>
+                        <li>Marcadores o herramientas de escritura digital.</li>
+                        <li>Temporizador visible.</li>
+                        <li>Ejemplos "Casas Impresas 3D" para Fence the Playground, 6-3-5 y Combinaboard (Diapositivas 10, 12, 14).</li>
+                    </ul>
+                     <strong>Preparación Previa para ESTA Sesión:</strong>
+                    <ol>
+                        <li><strong>Presentación Lista:</strong> Tener listas las Diapositivas 9 a 15. Preparar los ejemplos de las casas 3D.</li>
+                        <li><strong>Plantillas 6-3-5:</strong> Listas para cada equipo/participante (digitales en Miro o físicas).</li>
+                        <li><strong>Espacio de Trabajo:</strong> Equipos deben tener acceso a sus Combinaboards de la Sesión 1.</li>
+                        <li><strong>Temporizador:</strong> Listo y visible para la actividad 6-3-5.</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- ------------------------------------------------- Espacio para Actividades --------------------------------------------------------- -->
+
+<!-- Actividad 1 -->
+<div id="activity-1" class="activity">
+    <div class="banner" onclick="toggleContent('repaso_conexion_s2')">
+        <div class="title">🔄 Actividad 1: Repaso y Conexión ⏰ Tiempo: 3 minutos</div>
+        <div class="subtitle">Recordar la sesión anterior y conectar con las actividades de hoy.</div>
+    </div>
+    <div id="repaso_conexion_s2" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1.5 minutos):</strong> Repaso de Sesión 1. Proyectar Diapositiva 9.</td>
+                <td class="dialogue">
+                    "¡Qué onda, diseñadores 3D! ¡De vuelta a la acción! En la sesión pasada, nos llenamos de inspiración con nuestros Combinaboards y elegimos nuestra misión ODS. ¿Recuerdan qué ODS eligió su equipo y qué ideas iniciales pusieron en su tablero?"
+                     <i>(Hacer una pausa breve para que recuerden).</i>
+                    "¡Exacto! Exploramos el problema y empezamos a visualizar posibilidades."
+                </td>
+            </tr>
+             <tr>
+                <td><strong>PASO 2 (1.5 minutos):</strong> Introducción a Sesión 2.</td>
+                <td class="dialogue">
+                     "Hoy vamos a hacer dos cosas clave: primero, pondremos algunas 'reglas' a nuestro juego creativo para enfocarnos (¡eso es <strong>Fence the Playground</strong>!). No se trata de limitar la creatividad, sino de darle dirección, como los bordes de una cancha nos ayudan a jugar mejor."
+                     <br><br>
+                     "Y luego... ¡prepárense para una verdadera EXPLOSIÓN de ideas 3D con la carrera <strong>6-3-5</strong>! ¡Vamos a generar un montón de conceptos específicos basados en esas reglas! ¡Abróchense los cinturones creativos!"
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Actividad 2 -->
+<div id="activity-2" class="activity">
+    <div class="banner" onclick="toggleContent('fence_playground_s2')">
+        <div class="title">🚧 Actividad 2: Táctica 2: Fence the Playground (Delimita el Terreno de Juego) ⏰ Tiempo: 10 minutos</div>
+        <div class="subtitle">Definir las restricciones creativas clave (NO Negociables) para enfocar el diseño.</div>
+    </div>
+    <div id="fence_playground_s2" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (2 minutos):</strong> Introducir la Táctica y la Necesidad de Límites. Proyectar Diapositiva 10.</td>
+                <td class="dialogue">
+                    "¡Ok, diseñadores, primer nivel creativo de hoy: <strong>Fence the Playground</strong>! A veces, tener demasiadas opciones puede ser abrumador. Poner algunos límites o 'reglas de oro' nos ayuda a enfocar nuestra energía y ser MÁS creativos dentro de un espacio definido."
+                    <br><br>
+                    "No se trata solo de poner límites porque sí, ¡sino de definir las <strong>Reglas de Oro</strong>, los <strong>'NO Negociables'</strong> de nuestro diseño 3D! Esto nos enfocará como un láser para resolver el problema correcto para la persona correcta."
+                </td>
+            </tr>
+             <tr>
+                <td><strong>PASO 2 (6 minutos):</strong> Discusión y Definición de los 4 NO Negociables. Proyectar Diapositiva 10 (con las 4 preguntas).</td>
+                <td class="dialogue">
+                     "En equipo, discutan y definan estas 4 cosas CRUCIALES para SU proyecto ODS:"
+                    <ol>
+                        <li><strong>Reto CLAVE:</strong> De todos los problemas de su ODS, ¿cuál es el MÁS importante, el número uno, que su diseño 3D <strong>TIENE</strong> que resolver? ¡Enfóquense! <i>(Ej: No solo 'vivienda', sino 'vivienda ultra-asequible y rápida para familias sin hogar').</i></li>
+                        <li><strong>Usuario ESENCIAL:</strong> ¿Quién es la persona o grupo que <strong>MÁS</strong> necesita su solución? ¿Qué es lo mínimo que necesita para que funcione para ella? ¿Hay algo que no puede hacer o pagar? <i>(Ej: Familias con ingresos bajísimos, necesidad de seguridad básica).</i></li>
+                        <li><strong>Límite CRÍTICO:</strong> ¿Cuál es la restricción <strong>MÁS GRANDE</strong> que tienen? ¿Es el <strong>costo</strong> (baratísimo)? ¿La <strong>velocidad</strong> (súper rápido)? ¿Los <strong>materiales</strong> (solo reciclados)? ¿La <strong>resistencia</strong> (aguantar huracanes)? ¡Elijan 1 o 2 límites cruciales, los más desafiantes!</li>
+                        <li><strong>Valor INNEGOCIABLE:</strong> ¿Qué principio es <strong>SAGRADO</strong> para ustedes? ¿La <strong>seguridad</strong> ante todo? ¿La <strong>dignidad</strong> de las personas? ¿El <strong>cuidado extremo del medio ambiente</strong>? ¿Qué cosa NUNCA sacrificarían en su diseño?</li>
+                    </ol>
+                    "¡Estas son sus Reglas de Oro! Escríbanlas claramente en su tablero Miro, en la sección 'Restricciones 3D / NO Negociables'. ¡Sean exigentes con ustedes mismos!"
+                     <i>(Circular y ayudar a profundizar en las restricciones. Hacer preguntas como: "¿Qué TAN barato?", "¿Resistente A QUÉ?", "¿QUÉ necesita SÍ o SÍ el usuario?". Asegurarse de que no sean solo categorías, sino condiciones específicas y desafiantes).</i>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>PASO 3 (2 minutos):</strong> Ejemplo Casas 3D. Proyectar Diapositiva 11.</td>
+                <td class="dialogue">
+                     "Miren el ejemplo de las casas 3D. Su <strong>Reto Clave</strong> era claro: vivienda digna y rápida para los más necesitados. Su <strong>Usuario Esencial</strong> eran familias con necesidades culturales específicas. Sus <strong>Límites Críticos</strong> eran el costo bajísimo y la velocidad altísima. Y sus <strong>Valores Innegociables</strong> eran la sostenibilidad y la dignidad. ¡Esas fueron sus Reglas de Oro! Ahora definan las suyas con esa misma profundidad."
+                      <i>(Mostrar la tabla de la Diapositiva 11 brevemente, señalando cómo las restricciones del ejemplo responden a las 4 preguntas guía).</i><br><br>
+                       <i>(Entregable: Lista de "NO Negociables" / "Reglas de Oro" definida por equipo).</i>
+                 </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Actividad 3 -->
+<div id="activity-3" class="activity">
+    <div class="banner" onclick="toggleContent('635_ideas_s2')">
+        <div class="title">💡 Actividad 3: Táctica 3: 6-3-5 - ¡Lluvia de Ideas 3D en Ráfaga! ⏰ Tiempo: 15 minutos</div>
+        <div class="subtitle">Generar una gran cantidad de ideas de diseño 3D basadas en las restricciones definidas.</div>
+    </div>
+    <div id="635_ideas_s2" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (2 minutos):</strong> Explicar la Técnica 6-3-5. Proyectar Diapositiva 12 (Instrucciones).</td>
+                <td class="dialogue">
+                    "¡Ahora sí, la explosión creativa: llega la Táctica <strong>6-3-5 para Diseño 3D</strong>! Basándonos en las Reglas de Oro (nuestros 'NO Negociables') que acabamos de definir, ¡vamos a generar al menos 18 ideas de diseño por equipo!"
+                    <br><br>
+                    "¿Cómo funciona? Es simple: <strong>6</strong> personas (o las que sean en el equipo), generan <strong>3</strong> ideas cada una en <strong>5</strong> minutos. Luego, pasan su hoja/tablero al compañero de la derecha."
+                    <br><br>
+                     "Recuerden: Cada uno empieza con <strong>3 ideas iniciales</strong> (piensen en Forma 3D, Función específica, Nombre cool...) en 5 minutos. Luego, <strong>¡pasan la hoja/tablero a la derecha!</strong> Leen las ideas que les llegaron y añaden <strong>3 ideas MÁS</strong>, ¡construyendo sobre lo que ya está ahí! Repetiremos esto hasta que todos hayan aportado a todas las hojas/tableros (o unas 3-4 rondas)."
+                </td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (1 minuto):</strong> Instrucciones Adicionales y Preparación.</td>
+                <td class="dialogue">
+                    "¡Importante! Dentro de sus restricciones (sus Reglas de Oro), ¡piensen en todo! ¿Qué forma tendría? ¿Podría tener partes móviles? ¿Cómo se imprimiría? ¿Qué nombre le ponemos?"
+                    <br><br>
+                    "La clave es <strong>NO JUZGAR</strong> las ideas en esta fase. ¡Solo generen, generen, generen! Cantidad sobre calidad ahora mismo. ¡Y construyan sobre las ideas de sus compañeros!"
+                    <br><br>
+                    "Preparen sus plantillas 6-3-5 (en Miro o en papel)."
+                </td>
+            </tr>
+             <tr>
+                 <td><strong>PASO 3 (10 minutos):</strong> Ejecución del 6-3-5 (Ej. 2 Rondas de 5 min).</td>
+                 <td class="dialogue">
+                    "¡Listos? Primera ronda de 5 minutos... ¡YA!"
+                     <i>(Poner temporizador visible. Animar la velocidad y el construir sobre ideas previas. Ser estricto con el tiempo).</i>
+                    <br>
+                     "¡Tiempo! ¡Pasen la hoja/tablero a la derecha! Lean rápido lo que les llegó. Segunda ronda de 5 minutos para añadir 3 ideas MÁS... ¡YA!"
+                     <i>(Gestionar la segunda ronda. Ajustar el número de rondas según el tiempo real disponible, buscando generar al menos 12-18 ideas por equipo).</i>
+                 </td>
+             </tr>
+             <tr>
+                 <td><strong>PASO 4 (2 minutos):</strong> Revisión Rápida y Ejemplo. Proyectar Diapositiva 13 (Ejemplo Casas 3D).</td>
+                 <td class="dialogue">
+                     "¡Alto ahí! ¡Miren la cantidad de ideas que han generado! ¡Es increíble!"
+                     <br><br>
+                     "Miren cómo el equipo de las casas 3D fue generando ideas en cada ronda: empezaron con casas modulares (Diseño), luego pensaron en materiales ultra-baratos (Materiales), y después en impresión 24/7 (Proceso)... ¡Todo surgió de ir sumando ideas ronda tras ronda! ¡Sigan ustedes!"
+                     <i>(Mostrar brevemente la tabla ejemplo de la Diapositiva 13 para ilustrar el proceso).</i><br><br>
+                     <i>(Entregable: Hojas/Tableros 6-3-5 llenos de ideas de diseño 3D por equipo).</i>
+                 </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Actividad 4 -->
+<div id="activity-4" class="activity">
+    <div class="banner" onclick="toggleContent('combinaboard_preguntas_s2')">
+        <div class="title">❓ Actividad 4: Táctica 1: Combinaboard (Parte 2) - Preguntas Poderosas ⏰ Tiempo: 7 minutos</div>
+        <div class="subtitle">Añadir preguntas específicas sobre viabilidad, funcionalidad e impacto a las ideas generadas.</div>
+    </div>
+    <div id="combinaboard_preguntas_s2" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (2 minutos):</strong> Conectar con Combinaboard y las nuevas ideas. Proyectar Diapositiva 14 (Instrucciones).</td>
+                <td class="dialogue">
+                    "¡Genial con esas ideas 3D! Han generado un montón de conceptos. Ahora, volvamos un momento a nuestros <strong>Combinaboards</strong>."
+                    <br><br>
+                    "Ahora que tienen ideas más concretas gracias al 6-3-5, vamos a añadir una capa más de profundidad a nuestro muro de inspiración: <strong>Preguntas Poderosas</strong>. Estas preguntas nos ayudarán a pensar críticamente sobre nuestras ideas para hacerlas realidad."
+                </td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (4 minutos):</strong> Generar y Añadir Preguntas Específicas.</td>
+                 <td class="dialogue">
+                     "Piensen en las ideas que más les gustaron del 6-3-5 (no tienen que elegir una sola todavía) y pregunten en su tablero Miro (o en post-its si es físico):"
+                    <ul>
+                        <li><strong>Viabilidad (¿Se puede hacer?):</strong> ¿Podríamos realmente diseñar esto en <strong>Tinkercad</strong>? ¿Se podrá imprimir con nuestras impresoras 3D (tamaño, material)? ¿Qué tan complejo es?</li>
+                        <li><strong>Funcionalidad (¿Funciona bien?):</strong> ¿Esta idea 3D de verdad resuelve el problema para [su <strong>usuario esencial</strong>]? ¿Será fácil de usar? ¿Cumple con los <strong>límites críticos</strong> (costo, velocidad, resistencia)?</li>
+                        <li><strong>Impacto ODS (¿Ayuda de verdad?):</strong> ¿Cómo exactamente esta idea ayuda a [su <strong>ODS</strong>]? ¿Cuál es el mayor beneficio que aporta? ¿Respeta nuestros <strong>valores innegociables</strong>?</li>
+                    </ul>
+                     "¡Añadan al menos 3 de estas preguntas específicas (o más si quieren) a su Combinaboard! Colóquenlas cerca de las ideas o imágenes relacionadas. ¡Nos ayudarán a pensar más profundo!"
+                    <i>(Circular y ayudar a formular preguntas concretas y relevantes para las ideas que surgieron en el 6-3-5. Conectar las preguntas con las Restricciones y el ODS).</i>
+                 </td>
+            </tr>
+             <tr>
+                 <td><strong>PASO 3 (1 minuto):</strong> Ejemplo Casas 3D y Cierre. Proyectar Diapositiva 15 (Ejemplo Casas 3D).</td>
+                <td class="dialogue">
+                     "Miren cómo el equipo de Casas 3D podría haberse preguntado: <i>'¿Podríamos imprimir una maqueta en Tinkercad?'</i> (Viabilidad), <i>'¿Cómo diseñamos para que sea fresca en verano y cálida en invierno?'</i> (Funcionalidad), <i>'¿Podríamos usar plástico reciclado de la comunidad?'</i> (Impacto ODS)."
+                     <br><br>
+                    "¡Excelente! Sus Combinaboards ahora tienen ideas Y preguntas que las desafían."
+                    <br><br>
+                     <i>(Entregable: Combinaboard actualizado con 3+ preguntas específicas sobre viabilidad, funcionalidad e impacto).</i>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Actividad 5 -->
+<div id="activity-5" class="activity">
+    <div class="banner" onclick="toggleContent('cierre_s2')">
+        <div class="title">🏁 Actividad 5: Cierre y Preparación para la Próxima Sesión ⏰ Tiempo: 5 minutos</div>
+        <div class="subtitle">Resumir logros y preparar para la selección y desarrollo de la idea final.</div>
+    </div>
+    <div id="cierre_s2" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (2 minutos):</strong> Resumen de Logros de la Sesión.</td>
+                <td class="dialogue">
+                    "¡Impresionante trabajo, diseñadores 3D! Hoy ha sido una sesión súper productiva. Primero, pusieron reglas claras a su creatividad con <strong>'Fence the Playground'</strong>, definiendo sus 'NO Negociables'. Luego, tuvieron una verdadera explosión de ideas con el <strong>6-3-5</strong>. Y finalmente, añadieron <strong>Preguntas Poderosas</strong> a sus Combinaboards para empezar a evaluar esas ideas. ¡Están en el camino correcto para crear algo impactante!"
+                </td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (2 minutos):</strong> Anticipar la Próxima Sesión (Selección y T-Bar).</td>
+                 <td class="dialogue">
+                    "En la próxima sesión (Sesión 3), ¡vamos a dar vida a estas ideas! Primero, tendrán que <strong>seleccionar la idea MÁS prometedora</strong> de todas las que generaron hoy."
+                    <br><br>
+                     "Luego, usaremos las tácticas <strong>'Human Truths'</strong> y <strong>'T-Bar'</strong> para conectar esa idea con lo que las personas realmente necesitan y para describirla a fondo, ¡dándole alma y detalle!"
+                 </td>
+            </tr>
+             <tr>
+                 <td><strong>PASO 3 (1 minuto):</strong> Tarea y Despedida.</td>
+                 <td class="dialogue">
+                     "Tarea para la próxima vez: Revisen con calma sus ideas del 6-3-5 y las preguntas del Combinaboard. Vayan pensando... ¿cuál es la idea que más les emociona? ¿Cuál tiene más potencial? ¡Elijan mentalmente sus ideas favoritas!"
+                     <br><br>
+                     "¡Nos vemos en la Sesión 3 para seleccionar su idea estrella y dibujarla a detalle! ¡Sigan innovando!"
+                 </td>
+             </tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- ------------------------------------------------- Fin Espacio para Actividades --------------------------------------------------------- -->
+
+</div>
+
+</body>
+</html>
